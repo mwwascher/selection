@@ -157,38 +157,6 @@ function lam_4(r, p_m)
     return lam
 end
 
-function tree_sym_ISL_4(r, p_m, tau_1, tau_2, tau_3)
-    coal = 0
-    lam = lam_4(r, p_m)
-    track_time = []
-    track_coal = []
-    while coal == 0
-        local next_coal = dot([1 2 3 4 5 6],rand(Multinomial(1,[1/6,1/6,1/6,1/6,1/6,1/6])))
-        #1 = (a,b), 2 = (a,c), 3 = (a,d), 4 = (b,c), 5 = (b,d), 6 = (c,d)
-        local next_time = rand(Exponential(1/lam))
-        if next_coal == 1
-            min_time = tau_1
-        elseif next_coal == 6
-            min_time = tau_2
-        else
-            min_time = tau_3
-        end
-        if next_time > min_time
-            coal = 1
-            track_time = cat(track_time, [next_time], dims = (1,1))
-            track_coal = cat(track_coal, [next_coal], dims = (1,1))
-            #return (next_time, next_coal, min_time)
-        end
-    end
-    tau3_1 = max(0, tau_2 - track_time[1])
-    tau3_2 = max(0, tau_3 - track_time[1])
-    out = tree_ISL_3(r, p_m, tau3_1, tau3_2)
-    track_time = cat(track_time, [out[1]], dims = (1,1))
-    track_coal = cat(track_coal, [out[2]], dims = (1,1))
-
-    return (track_time, track_coal)
-end
-
 function tree_asym_ISL_4(r, p_m, tau_1, tau_2, tau_3)
     nextcoal = 0
     coal_time = 0
@@ -330,3 +298,6 @@ function ILS_main_asym(r, p_m, tau_1, tau_2, tau_3, nreps)
     #return(coals)
     writedlm("fourtreecoal_asym.csv", coals, ',')
 end
+
+#r is selection advantage, p_m is mutation rate, taus are absolute speciation times, nreps is number of trees to simulate
+ILS_main_asym(2, .1, 1, 2, 3, nreps)

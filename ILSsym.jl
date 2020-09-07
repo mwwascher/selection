@@ -294,3 +294,6 @@ function ILS_main_sym(r, p_m, tau_1, tau_2, tau_3, nreps)
     #return(coals)
     writedlm("fourtreecoal_sym.csv", coals, ',')
 end
+
+#r is selection advantage, p_m is mutation rate, taus are absolute speciation times, nreps is number of trees to simulate
+ILS_main_sym(2, .1, 1, 1, 1, 10000)
