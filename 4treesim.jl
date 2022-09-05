@@ -19,66 +19,6 @@ function choose(n,k)
     return res
 end
 
-##########Entries of the P matrix for the markov chain of #A lineages
-
-# r = 2
-# p_m = 0.0001
-# p = (-(1-r*(1-p_m)+p_m) + sqrt((1-r*(1-p_m) + p_m)^2 - 4*(r-1)*(-p_m)))/(2*(r-1))
-#
-# p_AA = ((1-p_m)*p)/((1-p_m)*p+p_m*(1-p))
-# p_Aa = 1- p_AA
-# p_aA = (p_m*p)/((1-p_m)*(1-p)+p_m*p)
-# p_aa = 1-p_aA
-#
-# ########4 lineages
-#
-# p_00 = choose(4,0)*p_aA^0*(1-p_aA)^4
-# p_01 = choose(4,1)*p_aA^1*(1-p_aA)^3
-# p_02 = choose(4,2)*p_aA^2*(1-p_aA)^2
-# p_03 = choose(4,3)*p_aA^3*(1-p_aA)^1
-# p_04 = choose(4,4)*p_aA^4*(1-p_aA)^0
-#
-# p_10 = p_Aa*p_aa^3
-# p_11 = p_AA*p_aa^3 + p_Aa*choose(3,1)*p_aA*p_aa^2
-# p_12 = p_AA*choose(3,1)*p_aA*p_aa^2 + p_Aa*choose(3,2)*p_aA^2*p_aa^1
-# p_13 = p_AA*choose(3,2)*p_aA^2*p_aa^1 + p_Aa*choose(3,3)*p_aA^3
-# p_14 = p_AA*choose(3,3)*p_aA^3
-#
-# p_20 = p_Aa^2*p_aa^2
-# p_21 = choose(2,1)*p_AA*p_Aa*p_aa^2 + p_Aa^2*choose(2,1)*p_aA*p_aa
-# p_22 = p_AA^2*p_aa^2 + choose(2,1)*p_AA*p_Aa*choose(2,1)*p_aA*p_aa + p_Aa^2*p_aA^2
-# p_23 = p_AA^2*choose(2,1)*p_aA*p_aa + choose(2,1)*p_AA*p_Aa*p_aA^2
-# p_24 = p_AA^2*p_aA^2
-#
-# p_30 = p_Aa^3*p_aa
-# p_31 = choose(3,1)*p_AA*p_Aa^2*p_aa +p_Aa^3*p_aA
-# p_32 = choose(3,2)*p_AA^2*p_Aa*p_aa+choose(3,1)*p_AA*p_Aa^2*p_aA
-# p_33 = p_AA^3*p_aa + choose(3,2)*p_AA^2*p_Aa*p_aA
-# p_34 = p_AA^3*p_aA
-#
-# p_40 = p_Aa^4
-# p_41 = choose(4,1)*p_Aa^3*p_AA
-# p_42 = choose(4,2)*p_Aa^2*p_AA^2
-# p_43 = choose(4,3)*p_Aa^1*p_AA^3
-# p_44 = p_AA^4
-#
-# #####Matrix stuff
-# pmat = [p_00 p_01 p_02 p_03 p_04; p_10 p_11 p_12 p_13 p_14; p_20 p_21 p_22 p_23 p_24; p_30 p_31 p_32 p_33 p_34; p_40 p_41 p_42 p_43 p_44]
-# imat = Diagonal([1,1,1,1,1])
-# adj = [1; 1; 1; 1; 1]
-# aug = hcat(pmat-imat,adj)
-# p_inv = pinv(aug)
-# vec = [0 0 0 0 0 1]
-# pi_h = vec * p_inv
-#
-# lam_h = [0 0 0 0 0]
-# lam_h = convert(Array{Float64,2}, lam_h)
-# for h = 1:5
-#     lam_h[h] = pi_h[h]*(choose(h-1,2)*(1/p) + choose(4-(h-1),2)*(1/(1-p)))
-# end
-# lam = sum(lam_h)
-# print(lam)
-
 #####Simulation
 function prodfun_j4(N, h, p)
     prod = 1
