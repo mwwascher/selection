@@ -22,9 +22,9 @@ end
 function lam_2(r, p_m)
     p = (-(1-r*(1-p_m)+p_m) + sqrt((1-r*(1-p_m) + p_m)^2 - 4*(r-1)*(-p_m)))/(2*(r-1))
 
-    p_AA = ((1-p_m)*p)/((1-p_m)*p+p_m*(1-p))
+    p_AA = ((1-p_m)*r*p)/((1-p_m)*r*p+p_m*(1-p))
     p_Aa = 1- p_AA
-    p_aA = (p_m*p)/((1-p_m)*(1-p)+p_m*p)
+    p_aA = (p_m*r*p)/((1-p_m)*(1-p)+p_m*r*p)
     p_aa = 1-p_aA
 
     p_00 = choose(2,0)*p_aA^0*(1-p_aA)^2
@@ -60,9 +60,9 @@ end
 function lam_3(r, p_m)
     p = (-(1-r*(1-p_m)+p_m) + sqrt((1-r*(1-p_m) + p_m)^2 - 4*(r-1)*(-p_m)))/(2*(r-1))
 
-    p_AA = ((1-p_m)*p)/((1-p_m)*p+p_m*(1-p))
+    p_AA = ((1-p_m)*r*p)/((1-p_m)*r*p+p_m*(1-p))
     p_Aa = 1- p_AA
-    p_aA = (p_m*p)/((1-p_m)*(1-p)+p_m*p)
+    p_aA = (p_m*r*p)/((1-p_m)*(1-p)+p_m*r*p)
     p_aa = 1-p_aA
 
     p_00 = choose(3,0)*p_aA^0*(1-p_aA)^3
@@ -105,9 +105,9 @@ end
 function lam_4(r, p_m)
     p = (-(1-r*(1-p_m)+p_m) + sqrt((1-r*(1-p_m) + p_m)^2 - 4*(r-1)*(-p_m)))/(2*(r-1))
 
-    p_AA = ((1-p_m)*p)/((1-p_m)*p+p_m*(1-p))
+    p_AA = ((1-p_m)*r*p)/((1-p_m)*r*p+p_m*(1-p))
     p_Aa = 1- p_AA
-    p_aA = (p_m*p)/((1-p_m)*(1-p)+p_m*p)
+    p_aA = (p_m*r*p)/((1-p_m)*(1-p)+p_m*r*p)
     p_aa = 1-p_aA
 
     p_00 = choose(4,0)*p_aA^0*(1-p_aA)^4
@@ -300,4 +300,4 @@ function ILS_main_asym(r, p_m, tau_1, tau_2, tau_3, nreps)
 end
 
 #r is selection advantage, p_m is mutation rate, taus are absolute speciation times, nreps is number of trees to simulate
-ILS_main_asym(2, .1, 1, 2, 3, nreps)
+#ILS_main_asym(r=2, p.m=.1, 1, 2, 3, nreps)

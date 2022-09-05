@@ -168,9 +168,9 @@ function timefun_c4(T, N, r, p_m, p_init)
         p_flip = (choose(h,2)*prod_1)/((N*p_i[time_c])^h) + (choose(4-h,2)*prod_2)/((N*(1-p_i[time_c]))^(4-h))
         flip = rand(Binomial(1,p_flip))
 
-        p_AA = ((1-p_m)*p_i[time_c])/((1-p_m)*p_i[time_c]+p_m*(1-p_i[time_c]))
+        p_AA = ((1-p_m)*r*p_i[time_c])/((1-p_m)*r*p_i[time_c]+p_m*(1-p_i[time_c]))
         p_Aa = 1- p_AA
-        p_aA = (p_m*p_i[time_c])/((1-p_m)*(1-p_i[time_c])+p_m*p_i[time_c])
+        p_aA = (p_m*r*p_i[time_c])/((1-p_m)*(1-p_i[time_c])+p_m*r*p_i[time_c])
         p_aa = 1-p_aA
 
         h = next_h4(p_AA, p_Aa, p_aA, p_aa, h)
